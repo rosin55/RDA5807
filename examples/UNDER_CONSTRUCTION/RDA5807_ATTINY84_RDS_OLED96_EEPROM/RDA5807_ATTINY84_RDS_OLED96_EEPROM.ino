@@ -26,8 +26,8 @@
 
 
 // Please, check the ATtiny84 physical pins
-#define SEEK_UP 3
-#define SEEK_DOWN 5
+#define SEEK_UP 2
+#define SEEK_DOWN 3
 #define ENCODER_PIN_A 0
 #define ENCODER_PIN_B 1
 
@@ -72,7 +72,7 @@ void setup() {
   oled.begin();
   oled.on();
   oled.clear();
-  oled.setFont(FONT6X8);
+  oled.setFont(FONT8X16);
   oled.setCursor(0, 0);
   oled.print(F("RDA5807-Attiny84"));
   oled.setCursor(0, 2);
@@ -81,6 +81,7 @@ void setup() {
   oled.clear();
 
   rx.setup();
+  rx.setMono(false);
 
   // Restores the latest frequency and audio mute statis saved into the EEPROM
   if (EEPROM.read(0) == VALID_DATA) {
@@ -88,7 +89,7 @@ void setup() {
     currentFrequency |= EEPROM.read(2);
     rx.setMute(EEPROM.read(3));
   } else {
-    currentFrequency = 10390;  // default value
+    currentFrequency = 8830;  // default value
   }
 
   // Starts RDS setup
@@ -112,7 +113,9 @@ void saveEEPROM() {
 void showStatus() {
   oled.clear();
   oled.setCursor(0, 0);
+  oled.setFont(FONT8X16);
   oled.print(rx.formatCurrentFrequency());
+  oled.setFont(FONT6X8);
   rx.clearRdsBuffer();
 }
 

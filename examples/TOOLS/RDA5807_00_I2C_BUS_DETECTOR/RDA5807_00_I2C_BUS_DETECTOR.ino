@@ -19,8 +19,8 @@
 #include <RDA5807.h>
 
 
-#define WAEK_STATION    10270   // Please, change to your weakest station in your location 
-#define STRONG_STATION  10650   // Please, change to your strongest station in your location
+#define WAEK_STATION    8830   // Please, change to your weakest station in your location 
+#define STRONG_STATION  10470   // Please, change to your strongest station in your location
 
 RDA5807 rx; 
 char bufferAux[160];
@@ -53,7 +53,8 @@ void setup() {
     }
   }     
   rx.setup();  // 32.768kHz passive crystal
-  rx.setFrequency(10390); // Tunes at 103,9 MHz - Change it to your local FM Station. 
+  rx.setFrequency(WAEK_STATION); // Change it to your local FM Station.
+  rx.setVolume(8); 
   Serial.print(F("\nHave a nice project with the device ID: "));
   Serial.println(rx.getDeviceId());
 }
